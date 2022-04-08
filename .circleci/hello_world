@@ -6,15 +6,15 @@ commands:
       - run: echo ${CIRCLE_WORKFLOW_ID}
 
 jobs:
-  save_hello_world_output:
+  my_job:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: echo "hello world" > ~/output.txt
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - output.txt
+      - run: exit 1
+      - run:
+          name: on error
+          command: echo "Hello Error!"
+          when: on_fail
 
   print_output_file:
     docker:
